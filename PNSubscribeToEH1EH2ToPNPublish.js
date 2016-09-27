@@ -46,14 +46,6 @@ var EHInClient = EventHubClient.fromConnectionString(EHInConnectionString);
 // Create the EH Client
 EHInClient.open()
     .then(EHInClient.getPartitionIds.bind(EHInClient))
-    .then(function (partitionIds) {
-        return Promise.map(partitionIds, function (partitionId) {
-            return EHInClient.createReceiver('$Default', partitionId, { 'startAfterTime' : receiveAfterTime}).then(function (receiver) {
-                receiver.on('errorReceived', printError);
-                receiver.on('message', printEvent);
-            });
-        });
-    })
     .catch(printError);
 
 // Create the sender, and then, subscribe via PN, forwarding all messages to this new subscriber to the sender.
@@ -66,7 +58,6 @@ EHInClient.createSender().then(function(sender){
         }
     })
 });
-
 
 /**************                                 Create the Egress Path                                 */
 
