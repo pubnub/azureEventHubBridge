@@ -12,7 +12,6 @@ var Promise = require('bluebird');
 
 
 var PNPublish = function(relayMessage) {
-    console.log("LOG: " + JSON.stringify(relayMessage));
     pubnub.publish({
         channel: "bot-relay",
         message: relayMessage.body
@@ -60,11 +59,13 @@ client.open()
     //.then(sendEvent('foo'))
     .catch(printError);
 
-
-pubnub.subscribe({
-    channel: "bot",
-    message: function (message) {
-        // console.log(" > ", message);
-        client.createSender().then(sendEvent(message));
-    }
+client.createSender().then(function(sender){
+    pubnub.subscribe({
+        channel: "bot",
+        message: function (message) {
+            // console.log(" > ", message);
+            sender.send(message);
+        }
+    })
 });
+
