@@ -53,17 +53,12 @@ client.open()
             });
         });
     })
-    //.then(function () {
-    //    return client.createSender();
-    //})
-    //.then(sendEvent('foo'))
     .catch(printError);
 
 client.createSender().then(function(sender){
     pubnub.subscribe({
-        channel: "bot",
+        channel: "bot_object",
         message: function (message) {
-            // console.log(" > ", message);
             sender.send(message);
         }
     })
