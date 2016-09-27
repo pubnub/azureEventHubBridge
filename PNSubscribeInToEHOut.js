@@ -1,3 +1,6 @@
+// This file bridges a PN Subscribe to an Event Hub Input.  Upon receiving the message, the message is published back
+// via PubNub to a "relay" channel.
+
 'use strict';
 
 var pubnub = require("pubnub")({
@@ -9,8 +12,6 @@ var pubnub = require("pubnub")({
 var EventHubClient = require('azure-event-hubs').Client;
 var Promise = require('bluebird');
 
-
-
 var PNPublish = function(relayMessage) {
     pubnub.publish({
         channel: "bot-relay",
@@ -20,13 +21,6 @@ var PNPublish = function(relayMessage) {
 
 var connectionString = 'Endpoint=sb://autonubeventhub.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=533HJhCxZIynOV1xbQKBWgilDQ4euKRSUxWsbZBG1v4=;EntityPath=infrompnsubscriber';
 var eventHubPath = '';
-
-var sendEvent = function (eventBody) {
-    return function (sender) {
-        console.log('Sending Event: ' + eventBody);
-        return sender.send(eventBody);
-    };
-};
 
 var printError = function (err) {
     console.error(err.message);
