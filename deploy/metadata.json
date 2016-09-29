@@ -1,7 +1,6 @@
 {
-  "itemDisplayName": "Create an EventHubs namespace, Event Hub, and consumer group",
-  "description": "This template enables you to deploy an Event Hubs Standard namespace, an Event Hub, and a consumer group.",
-  "summary": "This template creates an Event Hubs namespace, an Event Hub, and a consumer group.",
-  "githubUsername": "sazeesha",
-  "dateUpdated": "2016-08-18"
+  "itemDisplayName": "Create an EventHubs and Webjob.",
+  "description": "Create an EventHubs and Webjob.",
+  "summary": "Create an EventHubs and Webjob",
+  "dateUpdated": "2016-09-28"
 }
