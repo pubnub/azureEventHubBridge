@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "namespaces_AutoNubEventHub_name": {
+        "Event Hub Namespace": {
             "type": "String"
         },
         "namespaces_location": {
@@ -58,8 +58,8 @@
     "variables": {
         "location": "[resourceGroup().location]",
         "sbVersion": "[parameters('apiVersion')]",
-        "ehInAuthorizationRuleResourceId": "[resourceId('Microsoft.EventHub/namespaces/eventhubs/authorizationRules', parameters('namespaces_AutoNubEventHub_name'), parameters('eventhubs_infrompnsubscriber_name'), parameters('authorizationRules_infromsubscriberhub_name'))]",
-        "ehOutAuthorizationRuleResourceId": "[resourceId('Microsoft.EventHub/namespaces/eventhubs/authorizationRules', parameters('namespaces_AutoNubEventHub_name'), parameters('eventhubs_outtopnpublisher_name'), parameters('authorizationRules_outtopublisherhub_name'))]"
+        "ehInAuthorizationRuleResourceId": "[resourceId('Microsoft.EventHub/namespaces/eventhubs/authorizationRules', parameters('Event Hub Namespace'), parameters('eventhubs_infrompnsubscriber_name'), parameters('authorizationRules_infromsubscriberhub_name'))]",
+        "ehOutAuthorizationRuleResourceId": "[resourceId('Microsoft.EventHub/namespaces/eventhubs/authorizationRules', parameters('Event Hub Namespace'), parameters('eventhubs_outtopnpublisher_name'), parameters('authorizationRules_outtopublisherhub_name'))]"
     },
     "resources": [
         {
@@ -69,7 +69,7 @@
                 "name": "Basic",
                 "tier": "Basic"
             },
-            "name": "[parameters('namespaces_AutoNubEventHub_name')]",
+            "name": "[parameters('Event Hub Namespace')]",
             "apiVersion": "[parameters('apiVersion')]",
             "location": "[parameters('namespaces_location')]",
             "tags": {},
@@ -80,7 +80,7 @@
                     "type": "eventhubs",
                     "name": "[parameters('eventhubs_infrompnsubscriber_name')]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_AutoNubEventHub_name'))]"
+                        "[resourceId('Microsoft.EventHub/namespaces', parameters('Event Hub Namespace'))]"
                     ],
                     "apiVersion": "[parameters('apiVersion')]",
                     "location": "[parameters('namespaces_location')]",
@@ -93,7 +93,7 @@
                             "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/eventhubs/infrompnsubscriber/authorizationRules/infromsubscriberhub'.",
                             "type": "authorizationRules",
                             "dependsOn": [
-                                "[concat('Microsoft.EventHub/namespaces/', parameters('namespaces_AutoNubEventHub_name'),'/eventhubs/',parameters('eventhubs_infrompnsubscriber_name'))]"
+                                "[concat('Microsoft.EventHub/namespaces/', parameters('Event Hub Namespace'),'/eventhubs/',parameters('eventhubs_infrompnsubscriber_name'))]"
                             ],
                             "name": "[parameters('authorizationRules_infromsubscriberhub_name')]",
                             "apiVersion": "[parameters('apiVersion')]",
@@ -112,8 +112,8 @@
                     "type": "eventhubs",
                     "name": "[parameters('eventhubs_outtopnpublisher_name')]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_AutoNubEventHub_name'))]",
-                        "[concat('Microsoft.EventHub/namespaces/', parameters('namespaces_AutoNubEventHub_name'),'/eventhubs/',parameters('eventhubs_infrompnsubscriber_name'))]"
+                        "[resourceId('Microsoft.EventHub/namespaces', parameters('Event Hub Namespace'))]",
+                        "[concat('Microsoft.EventHub/namespaces/', parameters('Event Hub Namespace'),'/eventhubs/',parameters('eventhubs_infrompnsubscriber_name'))]"
                     ],
                     "apiVersion": "[parameters('apiVersion')]",
                     "location": "[variables('location')]",
@@ -126,7 +126,7 @@
                             "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/eventhubs/outtopnpublisher/authorizationRules/outtopublisherhub'.",
                             "type": "authorizationRules",
                             "dependsOn": [
-                                "[concat('Microsoft.EventHub/namespaces/', parameters('namespaces_AutoNubEventHub_name'),'/eventhubs/',parameters('eventhubs_outtopnpublisher_name'))]"
+                                "[concat('Microsoft.EventHub/namespaces/', parameters('Event Hub Namespace'),'/eventhubs/',parameters('eventhubs_outtopnpublisher_name'))]"
                             ],
                             "name": "[parameters('authorizationRules_outtopublisherhub_name')]",
                             "apiVersion": "[parameters('apiVersion')]",
@@ -250,7 +250,7 @@
         {
             "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/AuthorizationRules/infromsubscribernamespace'.",
             "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
-            "name": "[concat(parameters('namespaces_AutoNubEventHub_name'), '/', parameters('AuthorizationRules_infromsubscribernamespace_name'))]",
+            "name": "[concat(parameters('Event Hub Namespace'), '/', parameters('AuthorizationRules_infromsubscribernamespace_name'))]",
             "apiVersion": "[parameters('apiVersion')]",
             "properties": {
                 "rights": [
@@ -259,7 +259,7 @@
                 ]
             },
             "dependsOn": [
-                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_AutoNubEventHub_name'))]"
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('Event Hub Namespace'))]"
             ]
         }
     ]
