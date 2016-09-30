@@ -5,23 +5,23 @@
         "Event Hub Namespace": {
             "type": "String"
         },
-        "namespaces_location": {
+        "Azure Datacenter Location": {
             "type": "String",
             "defaultValue": "westus"
         },
-        "pnSubChannel": {
+        "PubNub Ingress Channel": {
             "type": "String",
             "defaultValue": "pnInput"
         },
-        "pnPubChannel": {
+        "PubNub Egress Channel": {
             "type": "String",
             "defaultValue": "pnOutput"
         },
-        "pnPublishKey": {
+        "PubNub Publish Key": {
             "type": "String",
             "defaultValue": "demo-36"
         },
-        "pnSubscribeKey": {
+        "PubNub Subscribe Key": {
             "type": "String",
             "defaultValue": "demo-36"
         },
@@ -77,7 +77,7 @@
             },
             "name": "[parameters('Event Hub Namespace')]",
             "apiVersion": "[parameters('apiVersion')]",
-            "location": "[parameters('namespaces_location')]",
+            "location": "[parameters('Azure Datacenter Location')]",
             "tags": {},
             "properties": {},
             "resources": [
@@ -89,7 +89,7 @@
                         "[resourceId('Microsoft.EventHub/namespaces', parameters('Event Hub Namespace'))]"
                     ],
                     "apiVersion": "[parameters('apiVersion')]",
-                    "location": "[parameters('namespaces_location')]",
+                    "location": "[parameters('Azure Datacenter Location')]",
                     "properties": {
                         "messageRetentionInDays": 1,
                         "partitionCount": 2
@@ -222,19 +222,19 @@
                     ],
                     "properties": {
                         "PNSubChannel": {
-                            "value": "[parameters('pnSubChannel')]",
+                            "value": "[parameters('PubNub Ingress Channel')]",
                             "type": "custom"
                         },
                         "PNPubChannel": {
-                            "value": "[parameters('pnPubChannel')]",
+                            "value": "[parameters('PubNub Egress Channel')]",
                             "type": "custom"
                         },
                         "PNPublishKey": {
-                            "value": "[parameters('pnPublishKey')]",
+                            "value": "[parameters('PubNub Publish Key')]",
                             "type": "custom"
                         },
                         "PNSubscribeKey": {
-                            "value": "[parameters('pnSubscribeKey')]",
+                            "value": "[parameters('PubNub Subscribe Key')]",
                             "type": "custom"
                         },
                         "EHInConnectionString": {

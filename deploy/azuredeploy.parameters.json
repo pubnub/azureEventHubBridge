@@ -5,19 +5,19 @@
         "Event Hub Namespace": {
             "value": null
         },
-        "namespaces_location": {
+        "Azure Datacenter Location": {
             "value": null
         },
-        "pnSubChannel": {
+        "PubNub Ingress Channel": {
             "value": null
         },
-        "pnPubChannel": {
+        "PubNub Egress Channel": {
             "value": null
         },
-        "pnPublishKey": {
+        "PubNub Publish Key": {
             "value": null
         },
-        "pnSubscribeKey": {
+        "PubNub Subscribe Key": {
             "value": null
         },
         "serverfarms_USWestBasic_name": {
