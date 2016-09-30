@@ -3,7 +3,21 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "namespaces_AutoNubEventHub_name": {
-            "defaultValue": "AutoNubEventHub",
+            "type": "String"
+        },
+        "namespaces_location": {
+            "type": "String"
+        },
+        "pnSubChannel": {
+            "type": "String"
+        },
+        "pnPubChannel": {
+            "type": "String"
+        },
+        "pnPublishKey": {
+            "type": "String"
+        },
+        "pnSubscribeKey": {
             "type": "String"
         },
         "serverfarms_USWestBasic_name": {
@@ -11,43 +25,42 @@
             "type": "String"
         },
         "sites_pnwebjob_name": {
-            "defaultValue": "pnwebjob",
-            "type": "String"
-        },
-        "AuthorizationRules_RootManageSharedAccessKey_name": {
-            "defaultValue": "AutoNubEventHub/RootManageSharedAccessKey",
             "type": "String"
         },
         "AuthorizationRules_infromsubscribernamespace_name": {
-            "defaultValue": "AutoNubEventHub/infromsubscribernamespace",
+            "defaultValue": "infromsubscribernamespace",
             "type": "String"
         },
         "eventhubs_infrompnsubscriber_name": {
-            "defaultValue": "AutoNubEventHub/infrompnsubscriber",
+            "defaultValue": "infrompnsubscriber",
             "type": "String"
         },
         "eventhubs_outtopnpublisher_name": {
-            "defaultValue": "AutoNubEventHub/outtopnpublisher",
+            "defaultValue": "outtopnpublisher",
             "type": "String"
         },
         "authorizationRules_infromsubscriberhub_name": {
-            "defaultValue": "AutoNubEventHub/infrompnsubscriber/infromsubscriberhub",
-            "type": "String"
-        },
-        "consumergroups_$Default_name": {
-            "defaultValue": "AutoNubEventHub/infrompnsubscriber/$Default",
+            "defaultValue": "infromsubscriberhub",
             "type": "String"
         },
         "authorizationRules_outtopublisherhub_name": {
-            "defaultValue": "AutoNubEventHub/outtopnpublisher/outtopublisherhub",
+            "defaultValue": "outtopublisherhub",
             "type": "String"
         },
-        "consumergroups_$Default_name_1": {
-            "defaultValue": "AutoNubEventHub/outtopnpublisher/$Default",
-            "type": "String"
+        "apiVersion": {
+            "defaultValue": "2015-08-01",
+            "type": "string",
+            "metadata": {
+                "description": "Service Bus ApiVersion used by the template"
+            }
         }
     },
-    "variables": {},
+    "variables": {
+        "location": "[resourceGroup().location]",
+        "sbVersion": "[parameters('apiVersion')]",
+        "ehInAuthorizationRuleResourceId": "[resourceId('Microsoft.EventHub/namespaces/eventhubs/authorizationRules', parameters('namespaces_AutoNubEventHub_name'), parameters('eventhubs_infrompnsubscriber_name'), parameters('authorizationRules_infromsubscriberhub_name'))]",
+        "ehOutAuthorizationRuleResourceId": "[resourceId('Microsoft.EventHub/namespaces/eventhubs/authorizationRules', parameters('namespaces_AutoNubEventHub_name'), parameters('eventhubs_outtopnpublisher_name'), parameters('authorizationRules_outtopublisherhub_name'))]"
+    },
     "resources": [
         {
             "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub'.",
@@ -56,21 +69,78 @@
                 "name": "Basic",
                 "tier": "Basic"
             },
-            "kind": "EventHub",
             "name": "[parameters('namespaces_AutoNubEventHub_name')]",
-            "apiVersion": "2015-08-01",
-            "location": "West US",
+            "apiVersion": "[parameters('apiVersion')]",
+            "location": "[parameters('namespaces_location')]",
             "tags": {},
-            "properties": {
-                "provisioningState": "Succeeded",
-                "status": "Active",
-                "createdAt": "2016-09-23T21:49:24.8Z",
-                "serviceBusEndpoint": "[concat('https://', parameters('namespaces_AutoNubEventHub_name'),'.servicebus.windows.net:443/')]",
-                "enabled": true,
-                "updatedAt": "2016-09-23T21:49:47.953Z"
-            },
-            "resources": [],
-            "dependsOn": []
+            "properties": {},
+            "resources": [
+                {
+                    "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/eventhubs/infrompnsubscriber'.",
+                    "type": "eventhubs",
+                    "name": "[parameters('eventhubs_infrompnsubscriber_name')]",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_AutoNubEventHub_name'))]"
+                    ],
+                    "apiVersion": "[parameters('apiVersion')]",
+                    "location": "[parameters('namespaces_location')]",
+                    "properties": {
+                        "messageRetentionInDays": 1,
+                        "partitionCount": 2
+                    },
+                    "resources": [
+                        {
+                            "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/eventhubs/infrompnsubscriber/authorizationRules/infromsubscriberhub'.",
+                            "type": "authorizationRules",
+                            "dependsOn": [
+                                "[concat('Microsoft.EventHub/namespaces/', parameters('namespaces_AutoNubEventHub_name'),'/eventhubs/',parameters('eventhubs_infrompnsubscriber_name'))]"
+                            ],
+                            "name": "[parameters('authorizationRules_infromsubscriberhub_name')]",
+                            "apiVersion": "[parameters('apiVersion')]",
+                            "location": "[variables('location')]",
+                            "properties": {
+                                "rights": [
+                                    "Send",
+                                    "Listen"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/eventhubs/outtopnpublisher'.",
+                    "type": "eventhubs",
+                    "name": "[parameters('eventhubs_outtopnpublisher_name')]",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_AutoNubEventHub_name'))]",
+                        "[concat('Microsoft.EventHub/namespaces/', parameters('namespaces_AutoNubEventHub_name'),'/eventhubs/',parameters('eventhubs_infrompnsubscriber_name'))]"
+                    ],
+                    "apiVersion": "[parameters('apiVersion')]",
+                    "location": "[variables('location')]",
+                    "properties": {
+                        "messageRetentionInDays": 1,
+                        "partitionCount": 2
+                    },
+                    "resources": [
+                        {
+                            "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/eventhubs/outtopnpublisher/authorizationRules/outtopublisherhub'.",
+                            "type": "authorizationRules",
+                            "dependsOn": [
+                                "[concat('Microsoft.EventHub/namespaces/', parameters('namespaces_AutoNubEventHub_name'),'/eventhubs/',parameters('eventhubs_outtopnpublisher_name'))]"
+                            ],
+                            "name": "[parameters('authorizationRules_outtopublisherhub_name')]",
+                            "apiVersion": "[parameters('apiVersion')]",
+                            "location": "[variables('location')]",
+                            "properties": {
+                                "rights": [
+                                    "Send",
+                                    "Listen"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         {
             "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourceGroups/AutoNub/providers/Microsoft.Web/serverfarms/USWestBasic'.",
@@ -83,8 +153,8 @@
                 "capacity": 1
             },
             "name": "[parameters('serverfarms_USWestBasic_name')]",
-            "apiVersion": "2015-08-01",
-            "location": "West US",
+            "apiVersion": "[parameters('apiVersion')]",
+            "location": "[variables('location')]",
             "properties": {
                 "name": "[parameters('serverfarms_USWestBasic_name')]",
                 "numberOfWorkers": 1
@@ -96,16 +166,16 @@
             "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourceGroups/AutoNub/providers/Microsoft.Web/sites/pnwebjob'.",
             "type": "Microsoft.Web/sites",
             "name": "[parameters('sites_pnwebjob_name')]",
-            "apiVersion": "2015-08-01",
-            "location": "West US",
+            "apiVersion": "[parameters('apiVersion')]",
+            "location": "[variables('location')]",
             "properties": {
                 "name": "[parameters('sites_pnwebjob_name')]",
                 "hostNames": [
-                    "pnwebjob.azurewebsites.net"
+                    "[concat(parameters('sites_pnwebjob_name'),'.azurewebsites.net')]"
                 ],
                 "enabledHostNames": [
-                    "pnwebjob.azurewebsites.net",
-                    "pnwebjob.scm.azurewebsites.net"
+                    "[concat(parameters('sites_pnwebjob_name'),'.azurewebsites.net')]",
+                    "[concat(parameters('sites_pnwebjob_name'),'.scm.azurewebsites.net')]"
                 ],
                 "hostNameSslStates": [
                     {
@@ -123,154 +193,73 @@
                 ],
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_USWestBasic_name'))]"
             },
-            "resources": [],
+            "resources": [
+                {
+                    "apiVersion": "2015-04-01",
+                    "name": "web",
+                    "type": "sourcecontrols",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/Sites', parameters('sites_pnwebjob_name'))]"
+                    ],
+                    "properties": {
+                        "RepoUrl": "https://github.com/pubnub/helloNode.git",
+                        "branch": "master",
+                        "IsManualIntegration": true
+                    }
+                },
+                {
+                    "apiVersion": "[parameters('apiVersion')]",
+                    "name": "connectionstrings",
+                    "type": "config",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/Sites', parameters('sites_pnwebjob_name'))]"
+                    ],
+                    "properties": {
+                        "PNSubChannel": {
+                            "value": "[parameters('pnSubChannel')]",
+                            "type": "custom"
+                        },
+                        "PNPubChannel": {
+                            "value": "[parameters('pnPubChannel')]",
+                            "type": "custom"
+                        },
+                        "PNPublishKey": {
+                            "value": "[parameters('pnPublishKey')]",
+                            "type": "custom"
+                        },
+                        "PNSubscribeKey": {
+                            "value": "[parameters('pnSubscribeKey')]",
+                            "type": "custom"
+                        },
+                        "EHInConnectionString": {
+                            "value": "[listkeys(variables('ehInAuthorizationRuleResourceId'), variables('sbVersion')).primaryConnectionString]",
+                            "type": "custom"
+                        },
+                        "EHOutConnectionString": {
+                            "value": "[listkeys(variables('ehOutAuthorizationRuleResourceId'), variables('sbVersion')).primaryConnectionString]",
+                            "type": "custom"
+                        }
+                    }
+
+                }
+            ],
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_USWestBasic_name'))]"
             ]
         },
         {
-            "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/AuthorizationRules/RootManageSharedAccessKey'.",
-            "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
-            "name": "[parameters('AuthorizationRules_RootManageSharedAccessKey_name')]",
-            "apiVersion": "2015-08-01",
-            "properties": {
-                "rights": [
-                    "Listen",
-                    "Manage",
-                    "Send"
-                ]
-            },
-            "resources": [],
-            "dependsOn": [
-                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_AutoNubEventHub_name'))]"
-            ]
-        },
-        {
             "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/AuthorizationRules/infromsubscribernamespace'.",
             "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
-            "name": "[parameters('AuthorizationRules_infromsubscribernamespace_name')]",
-            "apiVersion": "2015-08-01",
+            "name": "[concat(parameters('namespaces_AutoNubEventHub_name'), '/', parameters('AuthorizationRules_infromsubscribernamespace_name'))]",
+            "apiVersion": "[parameters('apiVersion')]",
             "properties": {
                 "rights": [
                     "Send",
                     "Listen"
                 ]
             },
-            "resources": [],
             "dependsOn": [
                 "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_AutoNubEventHub_name'))]"
-            ]
-        },
-        {
-            "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/eventhubs/infrompnsubscriber'.",
-            "type": "Microsoft.EventHub/namespaces/eventhubs",
-            "name": "[parameters('eventhubs_infrompnsubscriber_name')]",
-            "apiVersion": "2015-08-01",
-            "location": "West US",
-            "properties": {
-                "messageRetentionInDays": 1,
-                "status": "Active",
-                "createdAt": "2016-09-23T21:51:02.07",
-                "updatedAt": "2016-09-26T18:22:14.703",
-                "partitionCount": 2,
-                "partitionIds": [
-                    "0",
-                    "1"
-                ]
-            },
-            "resources": [],
-            "dependsOn": [
-                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_AutoNubEventHub_name'))]"
-            ]
-        },
-        {
-            "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/eventhubs/outtopnpublisher'.",
-            "type": "Microsoft.EventHub/namespaces/eventhubs",
-            "name": "[parameters('eventhubs_outtopnpublisher_name')]",
-            "apiVersion": "2015-08-01",
-            "location": "West US",
-            "properties": {
-                "messageRetentionInDays": 1,
-                "status": "Active",
-                "createdAt": "2016-09-23T21:51:49.75",
-                "updatedAt": "2016-09-27T19:02:33.96",
-                "partitionCount": 2,
-                "partitionIds": [
-                    "0",
-                    "1"
-                ]
-            },
-            "resources": [],
-            "dependsOn": [
-                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_AutoNubEventHub_name'))]"
-            ]
-        },
-        {
-            "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/eventhubs/infrompnsubscriber/authorizationRules/infromsubscriberhub'.",
-            "type": "Microsoft.EventHub/namespaces/eventhubs/authorizationRules",
-            "name": "[parameters('authorizationRules_infromsubscriberhub_name')]",
-            "apiVersion": "2015-08-01",
-            "location": "West US",
-            "properties": {
-                "rights": [
-                    "Send",
-                    "Listen"
-                ]
-            },
-            "resources": [],
-            "dependsOn": [
-                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_AutoNubEventHub_name'))]",
-                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('eventhubs_infrompnsubscriber_name'))]"
-            ]
-        },
-        {
-            "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/eventhubs/infrompnsubscriber/consumergroups/$Default'.",
-            "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
-            "name": "[parameters('consumergroups_$Default_name')]",
-            "apiVersion": "2015-08-01",
-            "location": "West US",
-            "properties": {
-                "createdAt": "2016-09-23T21:51:08.9649322",
-                "updatedAt": "2016-09-23T21:51:08.9649322"
-            },
-            "resources": [],
-            "dependsOn": [
-                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_AutoNubEventHub_name'))]",
-                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('eventhubs_infrompnsubscriber_name'))]"
-            ]
-        },
-        {
-            "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/eventhubs/outtopnpublisher/authorizationRules/outtopublisherhub'.",
-            "type": "Microsoft.EventHub/namespaces/eventhubs/authorizationRules",
-            "name": "[parameters('authorizationRules_outtopublisherhub_name')]",
-            "apiVersion": "2015-08-01",
-            "location": "West US",
-            "properties": {
-                "rights": [
-                    "Send",
-                    "Listen"
-                ]
-            },
-            "resources": [],
-            "dependsOn": [
-                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_AutoNubEventHub_name'))]",
-                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('eventhubs_outtopnpublisher_name'))]"
-            ]
-        },
-        {
-            "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/eventhubs/outtopnpublisher/consumergroups/$Default'.",
-            "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
-            "name": "[parameters('consumergroups_$Default_name_1')]",
-            "apiVersion": "2015-08-01",
-            "location": "West US",
-            "properties": {
-                "createdAt": "2016-09-23T21:51:50.6009732",
-                "updatedAt": "2016-09-23T21:51:50.6009732"
-            },
-            "resources": [],
-            "dependsOn": [
-                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_AutoNubEventHub_name'))]",
-                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('eventhubs_outtopnpublisher_name'))]"
             ]
         }
     ]

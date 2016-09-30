@@ -5,6 +5,21 @@
         "namespaces_AutoNubEventHub_name": {
             "value": null
         },
+        "namespaces_location": {
+            "value": null
+        },
+        "pnSubChannel": {
+            "value": null
+        },
+        "pnPubChannel": {
+            "value": null
+        },
+        "pnPublishKey": {
+            "value": null
+        },
+        "pnSubscribeKey": {
+            "value": null
+        },
         "serverfarms_USWestBasic_name": {
             "value": null
         },
