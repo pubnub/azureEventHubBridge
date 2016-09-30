@@ -6,26 +6,32 @@
             "type": "String"
         },
         "namespaces_location": {
-            "type": "String"
+            "type": "String",
+            "defaultValue": "westus"
         },
         "pnSubChannel": {
-            "type": "String"
+            "type": "String",
+            "defaultValue": "pnInput"
         },
         "pnPubChannel": {
-            "type": "String"
+            "type": "String",
+            "defaultValue": "pnOutput"
         },
         "pnPublishKey": {
-            "type": "String"
+            "type": "String",
+            "defaultValue": "demo-36"
         },
         "pnSubscribeKey": {
-            "type": "String"
+            "type": "String",
+            "defaultValue": "demo-36"
         },
         "serverfarms_USWestBasic_name": {
             "defaultValue": "USWestBasic",
             "type": "String"
         },
         "sites_pnwebjob_name": {
-            "type": "String"
+            "type": "String",
+            "defaultValue": "PNtoAzureBridgeWebjob"
         },
         "AuthorizationRules_infromsubscribernamespace_name": {
             "defaultValue": "infromsubscribernamespace",
