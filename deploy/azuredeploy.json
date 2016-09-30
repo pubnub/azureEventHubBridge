@@ -202,7 +202,7 @@
                         "[resourceId('Microsoft.Web/Sites', parameters('sites_pnwebjob_name'))]"
                     ],
                     "properties": {
-                        "RepoUrl": "https://github.com/pubnub/helloNode.git",
+                        "RepoUrl": "https://github.com/pubnub/azureEventHubBridge.git",
                         "branch": "master",
                         "IsManualIntegration": true
                     }
