@@ -56,7 +56,7 @@ if [ -z "$subscriptionId" ] || [ -z "$resourceGroupName" ] || [ -z "$deploymentN
 fi
 
 #login to azure using your credentials
-azure login
+#azure login
 
 #set the default subscription id
 azure account set $subscriptionId

@@ -3,7 +3,8 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "Event Hub Namespace": {
-            "type": "String"
+            "type": "String",
+            "defaultValue": "pn-eventhub-1fba54e9-100d-4fe0-a779-07383b0d4883"
         },
         "Azure Datacenter Location": {
             "type": "String",
@@ -31,10 +32,10 @@
         },
         "Azure Webjob Name": {
             "type": "String",
-            "defaultValue": "PNtoAzureBridgeWebjob"
+            "defaultValue": "pn-webjob-80fd73b7-d23e-442b-ae69-7481f518a218"
         },
         "Azure Ingress Event Hub Name": {
-            "defaultValue": "infrompnsubscriber",
+            "defaultValue": "infromsubscriberhub",
             "type": "String"
         },
         "Azure Egress Event Hub Name": {
@@ -47,10 +48,6 @@
         },
         "Azure Egress SAS Policy Name": {
             "defaultValue": "outtopublisherhub",
-            "type": "String"
-        },
-        "Azure Ingress SAS Policy Name DELETEME": {
-            "defaultValue": "infromsubscribernamespace",
             "type": "String"
         },
         "apiVersion": {
@@ -251,21 +248,6 @@
             ],
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', parameters('Azure Service Plan'))]"
-            ]
-        },
-        {
-            "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourcegroups/AutoNub/providers/Microsoft.EventHub/namespaces/AutoNubEventHub/AuthorizationRules/infromsubscribernamespace'.",
-            "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
-            "name": "[concat(parameters('Event Hub Namespace'), '/', parameters('Azure Ingress SAS Policy Name DELETEME'))]",
-            "apiVersion": "[parameters('apiVersion')]",
-            "properties": {
-                "rights": [
-                    "Send",
-                    "Listen"
-                ]
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.EventHub/namespaces', parameters('Event Hub Namespace'))]"
             ]
         }
     ]
