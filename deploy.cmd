@@ -1,3 +1,5 @@
+echo on
+
 :: ----------------------
 :: KUDU Deployment Script
 :: ----------------------
@@ -19,13 +21,13 @@ setlocal enabledelayedexpansion
 
 SET ARTIFACTS=%~dp0%artifacts
 
-#IF NOT DEFINED DEPLOYMENT_SOURCE (
-#  SET DEPLOYMENT_SOURCE=%~dp0%.
-#)
+:: IF NOT DEFINED DEPLOYMENT_SOURCE (
+::  SET DEPLOYMENT_SOURCE=%~dp0%.
+:: )
 
-#IF NOT DEFINED DEPLOYMENT_TARGET (
-#  SET DEPLOYMENT_TARGET=%ARTIFACTS%\wwwroot
-#)
+:: IF NOT DEFINED DEPLOYMENT_TARGET (
+::  SET DEPLOYMENT_TARGET=%ARTIFACTS%\wwwroot
+:: )
 
 SET DEPLOYMENT_SOURCE=\home\site\repository
 SET DEPLOYMENT_TARGET=\home\site\wwwroot
@@ -62,7 +64,8 @@ IF !ERRORLEVEL! NEQ 0 goto error
 :: 2. Install npm packages
 IF EXIST "%DEPLOYMENT_TARGET%\App_Data\jobs\continuous\pnwebjob\package.json" (
   pushd %DEPLOYMENT_TARGET%\App_Data\jobs\continuous\pnwebjob
-  call npm install --production
+  echo Starting npm install
+  call npm install
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
