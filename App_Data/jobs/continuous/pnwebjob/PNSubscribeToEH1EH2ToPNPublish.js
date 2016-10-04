@@ -50,12 +50,7 @@ var Promise = require('bluebird');
 
 
 var printError = function (err) {
-    console.error(err.message);
-};
-
-var printEvent = function (ehEvent) {
-    console.log('Event Received from EHIn: ');
-    console.log(JSON.stringify(ehEvent.body));
+    console.log("Error: " + err.message);
 };
 
 /**************                                 Create the Ingress Path                                 */
@@ -73,6 +68,7 @@ EHInClient.createSender().then(function(sender){
     pubnub.subscribe({
         channel: PNSubChannel,
         message: function (message) {
+            console.log("Received and forwarding message: " + JSON.stringify(message, null, 4));
             sender.send(message);
         }
     })
