@@ -21,7 +21,7 @@ console.log(PNPublishKey);
 console.log(PNSubscribeKey);
 console.log(EHInConnectionString);
 console.log(EHOutConnectionString);
-console.log(process.env);
+//console.log(process.env);
 
 
 // Begin Logic!
