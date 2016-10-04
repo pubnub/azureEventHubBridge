@@ -19,13 +19,16 @@ setlocal enabledelayedexpansion
 
 SET ARTIFACTS=%~dp0%artifacts
 
-IF NOT DEFINED DEPLOYMENT_SOURCE (
-  SET DEPLOYMENT_SOURCE=%~dp0%.
-)
+#IF NOT DEFINED DEPLOYMENT_SOURCE (
+#  SET DEPLOYMENT_SOURCE=%~dp0%.
+#)
 
-IF NOT DEFINED DEPLOYMENT_TARGET (
-  SET DEPLOYMENT_TARGET=%ARTIFACTS%\wwwroot
-)
+#IF NOT DEFINED DEPLOYMENT_TARGET (
+#  SET DEPLOYMENT_TARGET=%ARTIFACTS%\wwwroot
+#)
+
+SET DEPLOYMENT_SOURCE=\home\site\repository
+SET DEPLOYMENT_TARGET=\home\site\wwwroot
 
 IF NOT DEFINED NEXT_MANIFEST_PATH (
   SET NEXT_MANIFEST_PATH=%ARTIFACTS%\manifest
@@ -52,13 +55,13 @@ IF NOT DEFINED KUDU_SYNC_COMMAND (
 echo Handling node.js deployment.
 
 :: 1. KuduSync
-echo Kudu Sync from "%DEPLOYMENT_SOURCE%\nodejs" to "%DEPLOYMENT_TARGET%"
-call %KUDU_SYNC_COMMAND% -q -f "%DEPLOYMENT_SOURCE%\nodejs" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.deployment;deploy.cmd" 2>nul
+echo Kudu Sync from "%DEPLOYMENT_SOURCE%" to "%DEPLOYMENT_TARGET%"
+call %KUDU_SYNC_COMMAND% -f "%DEPLOYMENT_SOURCE%" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.deployment;deploy.cmd" 2>nul
 IF !ERRORLEVEL! NEQ 0 goto error
 
 :: 2. Install npm packages
-IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
-  pushd %DEPLOYMENT_TARGET%
+IF EXIST "%DEPLOYMENT_TARGET%\App_Data\jobs\continuous\pnwebjob\package.json" (
+  pushd %DEPLOYMENT_TARGET%\App_Data\jobs\continuous\pnwebjob
   call npm install --production
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
