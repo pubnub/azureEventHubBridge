@@ -63,11 +63,11 @@ IF !ERRORLEVEL! NEQ 0 goto error
 
 :: 2. Install npm packages
 IF EXIST "%DEPLOYMENT_TARGET%\App_Data\jobs\continuous\pnwebjob\package.json" (
-  pushd %DEPLOYMENT_TARGET%\App_Data\jobs\continuous\pnwebjob
-  echo Starting npm install
-  call npm install
-  IF !ERRORLEVEL! NEQ 0 goto error
-  popd
+  :: pushd %DEPLOYMENT_TARGET%\App_Data\jobs\continuous\pnwebjob
+  :: echo Starting npm install
+  :: call npm install
+  :: IF !ERRORLEVEL! NEQ 0 goto error
+  :: popd
 )
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
