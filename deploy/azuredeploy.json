@@ -151,7 +151,7 @@
             "sku": {
                 "name": "B3",
                 "tier": "Basic",
-                "size": "B1",
+                "size": "B3",
                 "family": "B",
                 "capacity": 1
             },
