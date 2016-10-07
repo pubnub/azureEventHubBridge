@@ -215,7 +215,8 @@
                     "name": "connectionstrings",
                     "type": "config",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/Sites', parameters('Azure Webjob Name'))]"
+                        "[resourceId('Microsoft.Web/Sites', parameters('Azure Webjob Name'))]",
+                        "[resourceId('Microsoft.Web/Sites/sourcecontrols', parameters('Azure Webjob Name'), 'web')]"
                     ],
                     "properties": {
                         "PNSubChannel": {
