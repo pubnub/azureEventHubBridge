@@ -149,9 +149,9 @@
             "comments": "Generalized from resource: '/subscriptions/38ccde7a-8dbd-46b4-a0c6-71201ffab311/resourceGroups/AutoNub/providers/Microsoft.Web/serverfarms/USWestBasic'.",
             "type": "Microsoft.Web/serverfarms",
             "sku": {
-                "name": "B3",
+                "name": "B1",
                 "tier": "Basic",
-                "size": "B3",
+                "size": "B1",
                 "family": "B",
                 "capacity": 1
             },
