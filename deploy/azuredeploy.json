@@ -206,7 +206,7 @@
                     ],
                     "properties": {
                         "RepoUrl": "https://github.com/pubnub/azureEventHubBridge.git",
-                        "branch": "dependency_test",
+                        "branch": "master",
                         "IsManualIntegration": true
                     }
                 },
