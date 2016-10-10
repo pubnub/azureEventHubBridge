@@ -172,6 +172,7 @@
             "apiVersion": "[parameters('apiVersion')]",
             "location": "[variables('location')]",
             "properties": {
+                "alwaysOn": true,
                 "name": "[parameters('Azure Webjob Name')]",
                 "hostNames": [
                     "[concat(parameters('Azure Webjob Name'),'.azurewebsites.net')]"
