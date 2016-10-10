@@ -172,7 +172,6 @@
             "apiVersion": "[parameters('apiVersion')]",
             "location": "[variables('location')]",
             "properties": {
-                "alwaysOn": true,
                 "name": "[parameters('Azure Webjob Name')]",
                 "hostNames": [
                     "[concat(parameters('Azure Webjob Name'),'.azurewebsites.net')]"
@@ -195,7 +194,8 @@
                         "ipBasedSslState": 0
                     }
                 ],
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('Azure Service Plan'))]"
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('Azure Service Plan'))]",
+                "alwaysOn": true
             },
             "resources": [
                 {
