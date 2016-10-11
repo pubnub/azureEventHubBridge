@@ -194,8 +194,7 @@
                         "ipBasedSslState": 0
                     }
                 ],
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('Azure Service Plan'))]",
-                "alwaysOn": true
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('Azure Service Plan'))]"
             },
             "resources": [
                 {
@@ -208,7 +207,8 @@
                     "properties": {
                         "RepoUrl": "https://github.com/pubnub/azureEventHubBridge.git",
                         "branch": "master",
-                        "IsManualIntegration": true
+                        "IsManualIntegration": true,
+                        "alwaysOn": true
                     }
                 },
                 {

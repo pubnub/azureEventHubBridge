@@ -7,7 +7,7 @@ var Promise = require('bluebird');
 
 // The Event Hubs SDK can also be used with an Azure IoT Hub connection string.
 // In that case, the eventHubPath variable is not used and can be left undefined.
-var connectionString = 'Endpoint=sb://autonubeventhub.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=533HJhCxZIynOV1xbQKBWgilDQ4euKRSUxWsbZBG1v4=;EntityPath=infrompnsubscriber' 
+var connectionString = 'Endpoint=sb://pn-eventhub-1fba54e9-100d-4fe0-a779-07383b0d4883.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=EXJWnFDu5R5kuWBpkhewGAu+/SpZFCGqZfj/Thggm+o=;EntityPath=infromsubscriberhub';
 
 var sendEvent = function (eventBody) {
   return function (sender) {
@@ -27,7 +27,7 @@ var printEvent = function (ehEvent) {
 };
 
 var client = EventHubClient.fromConnectionString(connectionString );
-var receiveAfterTime = Date.now() - 5000;
+var receiveAfterTime = Date.now() - 0;
 
 client.open()
       .then(client.getPartitionIds.bind(client))
