@@ -238,6 +238,10 @@
                             "value": "[parameters('PubNub Egress Channel')]",
                             "type": "custom"
                         },
+                        "PNAnnounceChannel": {
+                            "value": "[parameters('PubNub Announce Channel')]",
+                            "type": "custom"
+                        },
                         "PNPublishKey": {
                             "value": "[parameters('PubNub Publish Key')]",
                             "type": "custom"

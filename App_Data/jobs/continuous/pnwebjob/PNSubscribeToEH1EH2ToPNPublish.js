@@ -5,15 +5,27 @@
 
 // PN Vars
 
-var PNSubChannel = process.env['CUSTOMCONNSTR_PNSubChannel'];    // "bot_object";
-var PNPubChannel = process.env['CUSTOMCONNSTR_PNPubChannel'];    // "bot-relay";
-var PNPublishKey = process.env['CUSTOMCONNSTR_PNPublishKey'];    // "demo-36";
-var PNSubscribeKey = process.env['CUSTOMCONNSTR_PNSubscribeKey'];  // "demo-36";
+var PNSubChannel = process.env['CUSTOMCONNSTR_PNSubChannel'];
+var PNPubChannel = process.env['CUSTOMCONNSTR_PNPubChannel'];
+var PNAnnounceChannel = process.env['CUSTOMCONNSTR_PNAnnounceChannel'];
+var PNPublishKey = process.env['CUSTOMCONNSTR_PNPublishKey'];
+var PNSubscribeKey = process.env['CUSTOMCONNSTR_PNSubscribeKey'];
+
+
+
+//var PNSubChannel =   "pnInput";
+//var PNPubChannel =   "pnOutput";
+//var PNAnnounceChannel = "pnInput";
+//var PNPublishKey =   "demo-36";
+//var PNSubscribeKey = "demo-36";
 
 // Azure Vars
 
 var EHInConnectionString  = process.env['CUSTOMCONNSTR_EHInConnectionString']; // 'Endpoint=sb://autonubeventhub.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=533HJhCxZIynOV1xbQKBWgilDQ4euKRSUxWsbZBG1v4=;EntityPath=infrompnsubscriber';
 var EHOutConnectionString = process.env['CUSTOMCONNSTR_EHOutConnectionString']; // 'Endpoint=sb://autonubeventhub.servicebus.windows.net/;SharedAccessKeyName=outtopublisherhub;SharedAccessKey=GjfSXpxyIvVWzB6+DEZj9amxBIf1QV9XfyRtaujbTzo=;EntityPath=outtopnpublisher'
+
+//var EHInConnectionString  = "Endpoint=sb://pn-eventhub-1fba54e9-100d-4fe0-a779-07383b0d4883.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=vKj52NwjhvO88U9CoXEbMW0O/TPw8NE5tuP0mZFzIo0=;EntityPath=infromsubscriberhub";
+//var EHOutConnectionString  = "Endpoint=sb://pn-eventhub-1fba54e9-100d-4fe0-a779-07383b0d4883.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=vKj52NwjhvO88U9CoXEbMW0O/TPw8NE5tuP0mZFzIo0=;EntityPath=infromsubscriberhub";
 
 console.log(PNSubChannel);
 console.log(PNPubChannel);
@@ -71,7 +83,19 @@ EHInClient.createSender().then(function(sender){
             console.log("Received and forwarding message: " + JSON.stringify(message, null, 4));
             sender.send(message);
         }
-    })
+    });
+
+    // In Production, you may wish to either PAM Protect the Sub Channel, or this or remove it completely. Its handy for development and demos.
+
+    pubnub.state({
+        channel: PNAnnounceChannel,
+        state: {
+            EHInConnectionString: EHInConnectionString,
+            EHOutConnectionString: EHOutConnectionString
+        }
+    });
+
+
 });
 
 /**************                                 Create the Egress Path                                 */

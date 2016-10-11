@@ -14,6 +14,9 @@
         "PubNub Egress Channel": {
             "value": "pnOutput"
         },
+        "PubNub Announce Channel": {
+            "value": "pnInput"
+        },
         "PubNub Publish Key": {
             "value": "demo-36"
         },
