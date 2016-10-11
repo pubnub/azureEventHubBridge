@@ -43,7 +43,7 @@ var PNPublish = function(ehEvent) {
     });
 };
 
-var receiveAfterTime = Date.now() - 5000;
+var receiveAfterTime = Date.now() - 0;
 
 var EventHubClient = require('azure-event-hubs').Client;
 var Promise = require('bluebird');
