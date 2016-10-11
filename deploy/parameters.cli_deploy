@@ -15,7 +15,7 @@
             "value": "pnOutput"
         },
         "PubNub Announce Channel": {
-            "value": "pnInput"
+            "value": "pnAnnounce"
         },
         "PubNub Publish Key": {
             "value": "demo-36"
