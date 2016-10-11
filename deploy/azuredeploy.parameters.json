@@ -3,40 +3,40 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "Event Hub Namespace": {
-            "value": "pn-eventhub-1fba54e9-100d-4fe0-a779-07383b0d4883"
+            "value": null
         },
         "Azure Datacenter Location": {
-            "value": "westus"
+            "value": null
         },
         "PubNub Ingress Channel": {
-            "value": "pnInput"
+            "value": null
         },
         "PubNub Egress Channel": {
-            "value": "pnOutput"
+            "value": null
         },
         "PubNub Publish Key": {
-            "value": "demo-36"
+            "value": null
         },
         "PubNub Subscribe Key": {
-            "value": "demo-36"
+            "value": null
         },
         "Azure Service Plan": {
-            "value": "USWestBasic"
+            "value": null
         },
         "Azure Webjob Name": {
-            "value": "pn-webjob-80fd73b7-d23e-442b-ae69-7481f518a218"
+            "value": null
         },
         "Azure Ingress Event Hub Name": {
-            "value": "infromsubscriberhub"
+            "value": null
         },
         "Azure Egress Event Hub Name": {
-            "value": "outtopnpublisher"
+            "value": null
         },
         "Azure Ingress SAS Policy Name": {
-            "value": "infromsubscriberhub"
+            "value": null
         },
         "Azure Egress SAS Policy Name": {
-            "value": "outtopublisherhub"
+            "value": null
         }
     }
 }
