@@ -18,6 +18,10 @@
             "type": "String",
             "defaultValue": "pnOutput"
         },
+        "PubNub Announce Channel": {
+            "type": "String",
+            "defaultValue": "pnInput"
+        },
         "PubNub Publish Key": {
             "type": "String",
             "defaultValue": "demo-36"
