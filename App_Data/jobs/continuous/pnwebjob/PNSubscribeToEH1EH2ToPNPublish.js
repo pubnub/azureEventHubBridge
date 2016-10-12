@@ -11,21 +11,25 @@ var PNAnnounceChannel = process.env['CUSTOMCONNSTR_PNAnnounceChannel'];
 var PNPublishKey = process.env['CUSTOMCONNSTR_PNPublishKey'];
 var PNSubscribeKey = process.env['CUSTOMCONNSTR_PNSubscribeKey'];
 
-
-
-//var PNSubChannel =   "pnInput";
-//var PNPubChannel =   "pnOutput";
-//var PNAnnounceChannel = "pnInput";
-//var PNPublishKey =   "demo-36";
-//var PNSubscribeKey = "demo-36";
-
 // Azure Vars
 
-var EHInConnectionString  = process.env['CUSTOMCONNSTR_EHInConnectionString']; // 'Endpoint=sb://autonubeventhub.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=533HJhCxZIynOV1xbQKBWgilDQ4euKRSUxWsbZBG1v4=;EntityPath=infrompnsubscriber';
-var EHOutConnectionString = process.env['CUSTOMCONNSTR_EHOutConnectionString']; // 'Endpoint=sb://autonubeventhub.servicebus.windows.net/;SharedAccessKeyName=outtopublisherhub;SharedAccessKey=GjfSXpxyIvVWzB6+DEZj9amxBIf1QV9XfyRtaujbTzo=;EntityPath=outtopnpublisher'
+var EHInConnectionString  = process.env['CUSTOMCONNSTR_EHInConnectionString'];
+var EHOutConnectionString = process.env['CUSTOMCONNSTR_EHOutConnectionString'];
 
-//var EHInConnectionString  = "Endpoint=sb://pn-eventhub-1fba54e9-100d-4fe0-a779-07383b0d4883.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=vKj52NwjhvO88U9CoXEbMW0O/TPw8NE5tuP0mZFzIo0=;EntityPath=infromsubscriberhub";
-//var EHOutConnectionString  = "Endpoint=sb://pn-eventhub-1fba54e9-100d-4fe0-a779-07383b0d4883.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=vKj52NwjhvO88U9CoXEbMW0O/TPw8NE5tuP0mZFzIo0=;EntityPath=infromsubscriberhub";
+if (!PNSubChannel || !PNPubChannel || !PNAnnounceChannel || !PNPublishKey || !PNSubscribeKey) {
+
+    console.log("Error: Missing required vars!");
+    console.log(process.env);
+
+    PNSubChannel =   "pnInput";
+    PNPubChannel =   "pnOutput";
+    PNAnnounceChannel = "pnAnnounce";
+    PNPublishKey =   "demo-36";
+    PNSubscribeKey = "demo-36";
+
+    EHInConnectionString  = "Endpoint=sb://pn-eventhub-1fba54e9-100d-4fe0-a779-07383b0d4883.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=vKj52NwjhvO88U9CoXEbMW0O/TPw8NE5tuP0mZFzIo0=;EntityPath=infromsubscriberhub";
+    EHOutConnectionString  = "Endpoint=sb://pn-eventhub-1fba54e9-100d-4fe0-a779-07383b0d4883.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=vKj52NwjhvO88U9CoXEbMW0O/TPw8NE5tuP0mZFzIo0=;EntityPath=infromsubscriberhub";
+}
 
 console.log(PNSubChannel);
 console.log(PNPubChannel);
@@ -35,13 +39,14 @@ console.log(EHInConnectionString);
 console.log(EHOutConnectionString);
 //console.log(process.env);
 
-
-// Begin Logic!
+var uuid = "webjob-" + (Math.random() * 1000);
+console.log("Setting UUID to " + uuid);
 
 var pubnub = require("pubnub")({
     ssl: true,
     publish_key: PNPublishKey,
-    subscribe_key: PNSubscribeKey
+    subscribe_key: PNSubscribeKey,
+    uuid: uuid
 });
 
 var PNPublish = function(ehEvent) {
