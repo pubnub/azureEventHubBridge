@@ -198,7 +198,53 @@
                         "ipBasedSslState": 0
                     }
                 ],
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('Azure Service Plan'))]"
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('Azure Service Plan'))]",
+
+
+
+                "siteConfig": {
+                    "connectionStrings": [
+
+                             {
+                                "name": "PNSubChannel",
+                                 "value": "[parameters('PubNub Ingress Channel')]",
+                                "type": "custom"
+                            },
+                            {
+                                "name": "PNPubChannel",
+                                "value": "[parameters('PubNub Egress Channel')]",
+                                "type": "custom"
+                            },
+                            {
+                                "name": "PNAnnounceChannel",
+                                "value": "[parameters('PubNub Announce Channel')]",
+                                "type": "custom"
+                            },
+                            {
+                                "name": "PNPublishKey",
+                                "value": "[parameters('PubNub Publish Key')]",
+                                "type": "custom"
+                            },
+                            {
+                                "name": "PNSubscribeKey",
+                                "value": "[parameters('PubNub Subscribe Key')]",
+                                "type": "custom"
+                            },
+                            {
+                                "name": "EHInConnectionString",
+                                "value": "[listkeys(variables('ehInAuthorizationRuleResourceId'), variables('sbVersion')).primaryConnectionString]",
+                                "type": "custom"
+                            },
+                            {
+                                "name": "EHOutConnectionString",
+                                "value": "[listkeys(variables('ehOutAuthorizationRuleResourceId'), variables('sbVersion')).primaryConnectionString]",
+                                "type": "custom"
+                            }
+                        ]
+                }
+
+
+
             },
             "resources": [
                 {
@@ -221,49 +267,9 @@
                     ],
                     "properties": {
                         "RepoUrl": "https://github.com/pubnub/azureEventHubBridge.git",
-                        "branch": "master",
+                        "branch": "conStringMove",
                         "IsManualIntegration": true
                     }
-                },
-                {
-                    "apiVersion": "[parameters('apiVersion')]",
-                    "name": "connectionstrings",
-                    "type": "config",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Web/Sites', parameters('Azure Webjob Name'))]",
-                        "[resourceId('Microsoft.Web/Sites/sourcecontrols', parameters('Azure Webjob Name'), 'web')]"
-                    ],
-                    "properties": {
-                        "PNSubChannel": {
-                            "value": "[parameters('PubNub Ingress Channel')]",
-                            "type": "custom"
-                        },
-                        "PNPubChannel": {
-                            "value": "[parameters('PubNub Egress Channel')]",
-                            "type": "custom"
-                        },
-                        "PNAnnounceChannel": {
-                            "value": "[parameters('PubNub Announce Channel')]",
-                            "type": "custom"
-                        },
-                        "PNPublishKey": {
-                            "value": "[parameters('PubNub Publish Key')]",
-                            "type": "custom"
-                        },
-                        "PNSubscribeKey": {
-                            "value": "[parameters('PubNub Subscribe Key')]",
-                            "type": "custom"
-                        },
-                        "EHInConnectionString": {
-                            "value": "[listkeys(variables('ehInAuthorizationRuleResourceId'), variables('sbVersion')).primaryConnectionString]",
-                            "type": "custom"
-                        },
-                        "EHOutConnectionString": {
-                            "value": "[listkeys(variables('ehOutAuthorizationRuleResourceId'), variables('sbVersion')).primaryConnectionString]",
-                            "type": "custom"
-                        }
-                    }
-
                 }
             ],
             "dependsOn": [
