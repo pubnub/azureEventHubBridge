@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "Event Hub Namespace": {
-            "value": "pn-eventhub-1fba54e9-100d-4fe0-a779-07383b0d4883"
+            "value": "pn-eventhub-1fba54e9"
         },
         "Azure Datacenter Location": {
             "value": "westus"
@@ -27,7 +27,7 @@
             "value": "USWestBasic"
         },
         "Azure Webjob Name": {
-            "value": "pn-webjob-80fd73b7-d23e-442b-ae69-7481f518a218"
+            "value": "pn-webjob-80fd73b7"
         },
         "Azure Ingress Event Hub Name": {
             "value": "infromsubscriberhub"

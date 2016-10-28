@@ -27,8 +27,8 @@ if (!PNSubChannel || !PNPubChannel || !PNAnnounceChannel || !PNPublishKey || !PN
     PNPublishKey =   "demo-36";
     PNSubscribeKey = "demo-36";
 
-    //EHInConnectionString  = "Endpoint=sb://pn-eventhub-1fba54e9-100d-4fe0-a779-07383b0d4883.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=czNb0gZMBkSzgZsRgO8CGcicTfaOV3FK4xdH92IaJKU=;EntityPath=infromsubscriberhub";
-    //EHOutConnectionString  = "Endpoint=sb://pn-eventhub-1fba54e9-100d-4fe0-a779-07383b0d4883.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=vKj52NwjhvO88U9CoXEbMW0O/TPw8NE5tuP0mZFzIo0=;EntityPath=infromsubscriberhub";
+    //EHInConnectionString  = "Endpoint=sb://pn-eventhub-1fba54e9.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=czNb0gZMBkSzgZsRgO8CGcicTfaOV3FK4xdH92IaJKU=;EntityPath=infromsubscriberhub";
+    //EHOutConnectionString  = "Endpoint=sb://pn-eventhub-1fba54e9.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=vKj52NwjhvO88U9CoXEbMW0O/TPw8NE5tuP0mZFzIo0=;EntityPath=infromsubscriberhub";
 
 }
 
