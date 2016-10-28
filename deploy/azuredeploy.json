@@ -4,11 +4,11 @@
     "parameters": {
         "Event Hub Namespace": {
             "type": "String",
-            "defaultValue": "pn-eventhub-1fba54e9"
+            "defaultValue": "pn-eventhub-1fba54e9-100d-4fe0-a779-07383b0d4883"
         },
         "Azure Webjob Name": {
             "type": "String",
-            "defaultValue": "pn-webjob-80fd73b7"
+            "defaultValue": "pn-webjob-80fd73b7-d23e-442b-ae69-7481f518a218"
         },
         "Azure Datacenter Location": {
             "type": "String",
