@@ -19,26 +19,23 @@ var EHOutConnectionString = process.env['CUSTOMCONNSTR_EHOutConnectionString'];
 if (!PNSubChannel || !PNPubChannel || !PNAnnounceChannel || !PNPublishKey || !PNSubscribeKey) {
 
     console.log("Error: Missing required vars!");
-    console.log(process.env);
-
-    PNSubChannel = "pnInput";
-    PNPubChannel = "pnOutput";
-    PNAnnounceChannel = "pnAnnounce";
-    PNPublishKey = "demo-36";
-    PNSubscribeKey = "demo-36";
-
-    //EHInConnectionString  = "Endpoint=sb://pn-eventhub-1fba54e9.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=czNb0gZMBkSzgZsRgO8CGcicTfaOV3FK4xdH92IaJKU=;EntityPath=infromsubscriberhub";
-    //EHOutConnectionString  = "Endpoint=sb://pn-eventhub-1fba54e9.servicebus.windows.net/;SharedAccessKeyName=infromsubscriberhub;SharedAccessKey=vKj52NwjhvO88U9CoXEbMW0O/TPw8NE5tuP0mZFzIo0=;EntityPath=infromsubscriberhub";
-
+    dumpVars();
+    process.exit();
 }
 
-console.log(PNSubChannel);
-console.log(PNPubChannel);
-console.log(PNPublishKey);
-console.log(PNSubscribeKey);
-console.log(EHInConnectionString);
-console.log(EHOutConnectionString);
-//console.log(process.env);
+function dumpVars() {
+    console.log("PNSubChannel: ", PNSubChannel);
+    console.log("PNPubChannel: ", PNPubChannel);
+    console.log("PNPublishKey: ", PNPublishKey);
+    console.log("PNSubscribeKey: ", PNSubscribeKey);
+    console.log("EHInConnectionString: ", EHInConnectionString);
+    console.log("EHOutConnectionString: ", EHOutConnectionString);
+    console.log();
+    console.log("Env Process Dump:");
+    console.log();
+    console.log(process.env);
+}
+dumpVars();
 
 var uuid = "webjob-" + (Math.random() * 1000);
 console.log("Setting UUID to " + uuid);
@@ -91,7 +88,7 @@ EHInClient.createSender().then(function (sender) {
         }
     });
 
-    if (PNAnnounceChannel && PNAnnounceChannel != "disable") {
+    if (PNAnnounceChannel && PNAnnounceChannel != "disabled") {
 
         pubnub.state({
             channel: PNAnnounceChannel,
