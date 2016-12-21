@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "Event Hub Namespace": {
-            "value": "GEN-UNIQUE"
+            "value": "pn-eventhub-1fba54e9"
         },
         "Azure Webjob Name": {
-            "value": "GEN-UNIQUE"
+            "value": "pn-webjob-80fd73b7"
         },
         "Azure Datacenter Location": {
             "value": "westus"
